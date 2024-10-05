@@ -1,3 +1,4 @@
+import React from "react";
 import { styled } from "@mui/material/styles";
 import {
   AppBar,
@@ -8,13 +9,11 @@ import {
   Menu,
   Link,
 } from "@mui/material";
-import React from "react";
 import TelegramIcon from "@mui/icons-material/Telegram";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 import YouTubeIcon from "@mui/icons-material/YouTube";
-
 import TheaterComedyIcon from "@mui/icons-material/TheaterComedy";
 import { useNavigate } from "react-router-dom";
 import logo from "../image/logo.png";
@@ -26,6 +25,11 @@ const StyledToolbar = styled(Toolbar)(({ theme }) => ({
     paddingBottom: 35,
     paddingLeft: 75,
     paddingRight: 75,
+  },
+  "@media (max-width: 600px)": {
+    flexDirection: "column",
+    paddingLeft: 20,
+    paddingRight: 20,
   },
 }));
 
@@ -43,7 +47,23 @@ const StyledButton = styled(Button)`
   span {
     transition: letter-spacing 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
+
+  @media (max-width: 600px) {
+    min-width: 60px;
+    font-size: 0.8rem;
+  }
 `;
+
+const StyledLogo = styled("img")(({ theme }) => ({
+  height: "70px",
+  transition: "transform 0.3s ease",
+  "&:hover": {
+    transform: "scale(1.1)",
+  },
+  "@media (max-width: 600px)": {
+    height: "50px",
+  },
+}));
 
 function Navbar() {
   const [anchorContacts, setAnchorContacts] = React.useState(null);
@@ -300,17 +320,7 @@ function Navbar() {
                 },
               }}
             >
-              <img
-                src={logo}
-                alt="Фото"
-                style={{
-                  height: "70px",
-                  transition: "transform 0.3s ease",
-                  "&:hover": {
-                    transform: "scale(1.1)",
-                  },
-                }}
-              />
+              <StyledLogo src={logo} alt="Фото" />
               <Typography
                 variant="h6"
                 fontSize="calc(1rem + 0.2vw)"
@@ -351,17 +361,17 @@ function Navbar() {
                     fontSize="calc(0.2rem + 0.35vw)"
                     fontWeight="800"
                   >
-                    FOR ANY COLLABORATIONS
+                    HOW TO FIND ME
                   </Typography>
                 </StyledButton>
               </Grid>
             </Grid>
           </Grid>
         </StyledToolbar>
+        {renderContactsMenu}
+        {renderInfoMenu}
+        {renderMyWorkMenu}
       </AppBar>
-      {renderContactsMenu}
-      {renderInfoMenu}
-      {renderMyWorkMenu}
     </>
   );
 }
